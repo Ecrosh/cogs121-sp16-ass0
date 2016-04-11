@@ -7,7 +7,8 @@ const mongoose = require("mongoose");
 var app = express();
 
 var router = {
-    index: require("./routes/index")
+    index: require("./routes/index"),
+    message: require("./routes/message")
 };
 
 var parser = {
@@ -35,6 +36,7 @@ app.use(parser.body.json());
 
 // Routes
 app.get("/", router.index.view);
+app.post("/message", router.message.send);
 
 // Start Server
 http.createServer(app).listen(app.get("port"), function() {

@@ -1,4 +1,18 @@
+var models = require('../models.js');
+
 exports.view = function(req, res) {
-    var data = {data: []};
+  models.Message
+  .find()
+  .sort('-created')
+  .exec(displayMessages);
+
+  function displayMessages(err, message_posts) {
+    var data = {data: message_posts};
     res.render("index", data);
+
+    if(err) {
+      console.log(err);
+      res.send(500);
+    }
+  }
 }
